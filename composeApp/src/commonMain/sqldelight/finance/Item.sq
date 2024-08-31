@@ -1,19 +1,18 @@
 CREATE TABLE Item(
-    id INTEGER PRIMARY KEY NOT NULL,
     amount INTEGER NOT NULL,
     title TEXT NOT NULL,
     time INTEGER NOT NULL
 );
 
-INSERT INTO Item (id, amount, title, time) VALUES (1, 100000, "TEST 1", 1725100356000);
+INSERT INTO Item (amount, title, time) VALUES (100000, "TEST 1", 1725100356000);
 
 SelectAll:
 SELECT * FROM Item;
 
 insert:
-INSERT INTO Item(id, amount, title, time)
-VALUES (?, ?, ?, ?);
+INSERT INTO Item(amount, title, time)
+VALUES (?, ?, ?);
 
 insertFullPlayerObject:
-INSERT INTO Item(id, amount, title, time)
+INSERT INTO Item(amount, title, time)
 VALUES ?;
