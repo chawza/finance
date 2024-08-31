@@ -33,7 +33,8 @@ fun App() {
             }
             composable(Routes.ADD_TRANSACTION_ITEM.name) {
                 TransactionFormView(
-                    db = db
+                    db = db,
+                    navController = navController
                 )
             }
         }
