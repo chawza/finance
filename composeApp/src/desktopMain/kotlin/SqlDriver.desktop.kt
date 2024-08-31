@@ -2,7 +2,6 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import com.nabeelkm.finance.Database
 import java.io.File
-import kotlin.math.log
 
 actual class DriverFactory {
     actual fun createDriver(): SqlDriver {

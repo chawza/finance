@@ -13,6 +13,6 @@ insert:
 INSERT INTO Item(amount, title, time)
 VALUES (?, ?, ?);
 
-insertFullPlayerObject:
+insertFullObject:
 INSERT INTO Item(amount, title, time)
 VALUES ?;
