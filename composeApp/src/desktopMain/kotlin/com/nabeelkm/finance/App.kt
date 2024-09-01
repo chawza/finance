@@ -42,9 +42,10 @@ fun App() {
                     }
                 )
             ) { backStackEntry ->
-                val tasksId = backStackEntry.arguments!!.getString("itemId")!!
-                val task = db.itemQueries.getById(tasksId.toLong()).executeAsOneOrNull()
-
+                val tasksId = backStackEntry.arguments!!.getString("itemId")
+                val task = tasksId?.let {
+                    db.itemQueries.getById(it.toLong()).executeAsOneOrNull()
+                }
                 if (task == null) {
                     navController.navigate(Routes.TRANSACTION_LIST.name)
                     return@composable
