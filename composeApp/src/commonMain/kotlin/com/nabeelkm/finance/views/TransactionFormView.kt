@@ -90,9 +90,7 @@ fun TransactionFormView(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TimeInput(
-                    timeInputState,
-                )
+                TimeInput(timeInputState)
                 Button(
                     onClick = { showDatePicker = true },
                     shape = MaterialTheme.shapes.medium,
@@ -133,7 +131,7 @@ fun TransactionFormView(
                             }
                         }
                     },
-                    shape = MaterialTheme.shapes.small
+                    shape = MaterialTheme.shapes.small,
                 ) {
                     if (isEdit) {
                         Text("Edit")
@@ -143,9 +141,13 @@ fun TransactionFormView(
                     }
                 }
                 if (isEdit) {
+                    Spacer(modifier = Modifier.width(16.dp))
                     IconButton(
                         onClick = {
-
+                            lifecycleOwner.lifecycleScope.launch {
+                                db.itemQueries.deleteById(task!!.rowid)
+                                navController.popBackStack()
+                            }
                         },
                     ) {
                         Icon(
