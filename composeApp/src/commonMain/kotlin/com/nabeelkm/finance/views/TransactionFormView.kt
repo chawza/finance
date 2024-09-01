@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -81,18 +82,25 @@ fun TransactionFormView(
                 modifier = Modifier.fillMaxWidth()
             )
             Row(
-                modifier = Modifier.clickable { showDatePicker = true }
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 TimeInput(
                     timeInputState,
                 )
-                Text(
-                    text = datePickerState.selectedDateMillis?.let {
-                        LocalDate
-                            .ofInstant(Instant.ofEpochMilli(it), ZoneId.systemDefault())
-                            .format(DateTimeFormatter.ISO_LOCAL_DATE).toString()
-                    } ?: ""
-                )
+                Button(
+                    onClick = { showDatePicker = true },
+                    shape = MaterialTheme.shapes.medium,
+                ) {
+                    Text(
+                        text = datePickerState.selectedDateMillis?.let {
+                            LocalDate
+                                .ofInstant(Instant.ofEpochMilli(it), ZoneId.systemDefault())
+                                .format(DateTimeFormatter.ISO_LOCAL_DATE).toString()
+                        } ?: "",
+                        fontSize = MaterialTheme.typography.titleLarge.fontSize
+                    )
+                }
             }
             Button(
                 onClick = {

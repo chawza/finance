@@ -6,8 +6,8 @@ import androidx.compose.runtime.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.nabeelkm.finance.views.TransactionListView
 import com.nabeelkm.finance.views.TransactionFormView
+import com.nabeelkm.finance.views.TransactionListView
 import createDatabase
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -32,10 +32,7 @@ fun App() {
                 )
             }
             composable(Routes.ADD_TRANSACTION_ITEM.name) {
-                TransactionFormView(
-                    db = db,
-                    navController = navController
-                )
+                TransactionFormView(db, navController)
             }
         }
     }
