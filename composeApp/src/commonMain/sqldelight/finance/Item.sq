@@ -1,4 +1,5 @@
 CREATE TABLE Item(
+    rowid INTEGER PRIMARY KEY AUTOINCREMENT,
     amount INTEGER NOT NULL,
     title TEXT NOT NULL,
     time INTEGER NOT NULL
@@ -13,6 +14,13 @@ insert:
 INSERT INTO Item(amount, title, time)
 VALUES (?, ?, ?);
 
-insertFullObject:
-INSERT INTO Item(amount, title, time)
-VALUES ?;
+update:
+UPDATE Item
+    SET amount = ?, title = ?, time = ?
+    WHERE rowid == ?;
+
+deleteById:
+DELETE FROM Item WHERE rowid == ?;
+
+getById:
+SELECT * FROM Item WHERE rowid == ?;

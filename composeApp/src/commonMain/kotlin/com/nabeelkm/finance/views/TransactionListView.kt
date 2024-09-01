@@ -10,7 +10,9 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.nabeelkm.finance.Database
+import com.nabeelkm.finance.navigation.Routes
 import finance.Item
 import java.time.Instant
 import java.time.LocalDateTime
@@ -23,6 +25,7 @@ import java.util.TimeZone
 @Composable
 fun TransactionListView(
     db: Database,
+    navController: NavController,
     handleAddTransactionItem: () -> Unit
 ) {
     val tasks = remember { mutableStateOf<List<Item>>(listOf()) }
@@ -67,9 +70,15 @@ fun TransactionListView(
                         },
                         trailingContent = {
                             Text(
-                                text = "Rp" + String.format("%,d", task.amount).replace(',','.')
+                                text = "Rp" + String.format("%,d", task.amount).replace(',','.'),
+                                fontSize = MaterialTheme.typography.bodyLarge.fontSize
                             )
                         },
+                        modifier = Modifier.clickable {
+                            navController.navigate(
+                                Routes.editTransactionById(task.rowid)
+                            )
+                        }
                     )
                 }
             }
