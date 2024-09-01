@@ -10,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -58,13 +59,38 @@ fun TransactionFormView(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add Transaction Item") },
-                modifier = Modifier,
+                title = {
+                    if (isEdit) {
+                        Text("Edit Record")
+                    } else {
+                        Text("Add Record")
+                    }
+                },
                 actions = {
+                    if (isEdit) {
+                        IconButton(
+                            onClick = {
+                                lifecycleOwner.lifecycleScope.launch {
+                                    db.itemQueries.deleteById(task!!.rowid)
+                                    navController.popBackStack()
+                                }
+                            },
+                        ) {
+                            Icon(
+                                Icons.Filled.Delete,
+                                contentDescription = "delete task",
+                                modifier = Modifier.width(50.dp),
+                                tint = Color.Red
+                            )
+                        }
+                    }
                     IconButton(
                         onClick = { navController.popBackStack() }
                     ) {
-                        Icon(Icons.Filled.ArrowBack, "Back to Transaction List List")
+                        Icon(
+                            Icons.Filled.ArrowBack,
+                            contentDescription = "Back to Transaction List List",
+                        )
                     }
                 }
             )
@@ -91,9 +117,11 @@ fun TransactionFormView(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TimeInput(timeInputState)
+                Spacer(modifier = Modifier.width(16.dp))
                 Button(
                     onClick = { showDatePicker = true },
                     shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier.height(60.dp)
                 ) {
                     Text(
                         text = datePickerState.selectedDateMillis?.let {
@@ -132,29 +160,13 @@ fun TransactionFormView(
                         }
                     },
                     shape = MaterialTheme.shapes.small,
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     if (isEdit) {
                         Text("Edit")
                     }
                     else {
                         Text("Add")
-                    }
-                }
-                if (isEdit) {
-                    Spacer(modifier = Modifier.width(16.dp))
-                    IconButton(
-                        onClick = {
-                            lifecycleOwner.lifecycleScope.launch {
-                                db.itemQueries.deleteById(task!!.rowid)
-                                navController.popBackStack()
-                            }
-                        },
-                    ) {
-                        Icon(
-                            Icons.Filled.Delete,
-                            contentDescription = "delete task",
-                            modifier = Modifier.width(50.dp),
-                        )
                     }
                 }
             }
